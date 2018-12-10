@@ -1,0 +1,5 @@
+C:\Users\doi6181\source\repos\TaxiCabWeb\TaxiCab\bin\Debug\TaxiCab.dll
+C:\Users\doi6181\source\repos\TaxiCabWeb\TaxiCab\bin\Debug\TaxiCab.pdb
+C:\Users\doi6181\source\repos\TaxiCabWeb\TaxiCab\obj\Debug\TaxiCab.csproj.CoreCompileInputs.cache
+C:\Users\doi6181\source\repos\TaxiCabWeb\TaxiCab\obj\Debug\TaxiCab.dll
+C:\Users\doi6181\source\repos\TaxiCabWeb\TaxiCab\obj\Debug\TaxiCab.pdb

@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Taxi Cab Rate Fare";
+}
+
+<div id="angularApp" ng-app="appModule" ng-controller="taxiFareRateController">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="hourRange">Hour</label>
+                    <label for="hourRange">{{taxiCabRateModel.rideHour}}</label>
+                    <input type="range" ng-model="taxiCabRateModel.rideHour" class="form-control-range" id="hourRange" min="00" max="24">
+                </div>
+
+                <div class="form-group">
+                    <label for="hourRange">Minute</label>
+                    <label for="hourRange">{{taxiCabRateModel.rideMinute}}</label>
+                    <input type="range" ng-model="taxiCabRateModel.rideMinute" class="form-control-range" id="minuteRange" min="0" max="60">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 well well-sm">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':dayChosen == $index}" ng-click="dayClicked($index);">
+                    <span>{{day}}</span>
+                    <input type="radio" name="options" id="day{{$index}}" autocomplete="off">
+                </label>
+
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="beginDate"/>
+        </div>
+    </div>
+</div>
