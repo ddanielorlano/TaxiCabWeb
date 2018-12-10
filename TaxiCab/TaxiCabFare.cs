@@ -50,7 +50,7 @@ namespace TaxiCab
 
             EstimateRideEndDateTime = GetEstimatedEndTime();
             _isNight = RideBeginDateTime.Hour >= _nightSurchargeStartHour && EstimateRideEndDateTime.Hour <= _nightSurchargeEndHour;
-            _isPeakWeekday = (RideBeginDateTime.Hour <= _peakWeekdaySurchargeStartHour && EstimateRideEndDateTime.Hour <= _peakWeekdaySurchargeEndHour)
+            _isPeakWeekday = (RideBeginDateTime.Hour >= _peakWeekdaySurchargeStartHour && EstimateRideEndDateTime.Hour <= _peakWeekdaySurchargeEndHour)
                 && (RideBeginDateTime.DayOfWeek != DayOfWeek.Saturday || RideBeginDateTime.DayOfWeek != DayOfWeek.Sunday);
         }
 
