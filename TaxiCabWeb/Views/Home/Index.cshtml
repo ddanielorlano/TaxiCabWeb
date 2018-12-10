@@ -3,42 +3,126 @@
 }
 
 <div id="angularApp" ng-app="appModule" ng-controller="taxiFareRateController">
+
+
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <form>
-                <div class="form-group">
-                    <label for="hourRange">Hour</label>
-                    <label for="hourRange">{{taxiCabRateModel.rideHour}}</label>
-                    <input type="range" ng-model="taxiCabRateModel.rideHour" class="form-control-range" id="hourRange" min="00" max="24">
+
+            <div class="card text-center">
+                <div class="card-header">
+                    TaxiCab Fare Rate Calculator
                 </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ride Time</h5>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="hourRange">Ride Start Hour</label>
+                                            <label for="hourRange"><span class="badge badge-light">{{taxiRateObj.rideHour}}</span></label>
+                                            <input type="range" ng-model="taxiRateObj.rideHour" class="form-control-range" id="hourRange" min="00" max="24">
+                                        </div>
 
-                <div class="form-group">
-                    <label for="hourRange">Minute</label>
-                    <label for="hourRange">{{taxiCabRateModel.rideMinute}}</label>
-                    <input type="range" ng-model="taxiCabRateModel.rideMinute" class="form-control-range" id="minuteRange" min="0" max="60">
+                                        <div class="form-group">
+                                            <label for="minuteRange">Ride Start Minute</label>
+                                            <label for="minuteRange"><span class="badge badge-light">{{taxiRateObj.rideMinute}}</span></label>
+                                            <input type="range" ng-model="taxiRateObj.rideMinute" class="form-control-range" id="minuteRange" min="0" max="60">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ride Distance/Time</h5>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="minutesTraveledRange">Minutes Above 6</label>
+                                            <label for="minutesTraveledRange"><span class="badge badge-light">{{taxiRateObj.minutesTravelingAbove6mph}}</span></label>
+                                            <input type="range" ng-model="taxiRateObj.minutesTravelingAbove6mph" class="form-control-range" id="minutesTraveledRange" min="0" max="120">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="milesTraveledRange">Miles Below 6</label>
+                                            <label for="milesTraveledRange"><span class="badge badge-light">{{taxiRateObj.milesTraveledBelow6mph}}</span></label>
+                                            <input type="range" ng-model="taxiRateObj.milesTraveledBelow6mph" class="form-control-range" id="milesTraveledRange" min="0" max="30">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ride Day</h5>
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':dayChosen == $index}" ng-click="dayClicked($index);">
+                                            <span>{{day}}</span>
+                                            <input type="radio" name="options" id="day{{$index}}" autocomplete="off">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ride Date</h5>
+                                    <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="beginDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 well well-sm">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-
-                <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':dayChosen == $index}" ng-click="dayClicked($index);">
-                    <span>{{day}}</span>
-                    <input type="radio" name="options" id="day{{$index}}" autocomplete="off">
-                </label>
-
+                <div class="card-footer text-muted">
+                    <hr />
+                    <div class="row">
+                        <button type="button" ng-click="getRate();" class="btn btn-secondary btn-lg btn-block">Calculate Fare</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="" ng-show="showResults">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Total Fare <span class="badge badge-light">${{taxiCabRateResponseModel.totalFare}}</span>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                Entry Fare <span class="badge badge-light">${{taxiCabRateResponseModel.entryFare}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Ny State Tax<span class="badge badge-light">${{taxiCabRateResponseModel.nyStateTaxSurcharge}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Fare for Miles Traveled below 6 MPH<span class="badge badge-light">${{taxiCabRateResponseModel.fareMilesTraveledBelow6mph}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Fare for Minutes Traveled Above 6 MPH <span class="badge badge-light">${{taxiCabRateResponseModel.fareMinutesTraveledAbove6mph}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Night Surcharge: <span class="badge badge-light">${{taxiCabRateResponseModel.nightSurcharge}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Peak Weekday Surcharge <span class="badge badge-light">${{taxiCabRateResponseModel.peakWeakdaySurcharge}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-4"></div>
     </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="beginDate"/>
-        </div>
-    </div>
+    <div class="col-md-4"></div>
 </div>

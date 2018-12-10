@@ -6,6 +6,18 @@ using System.Threading.Tasks;
 
 namespace TaxiCab
 {
+    public class TaxiCabFareResult
+    {
+        public decimal EntryFare { get; set; }
+        public decimal NyStateTaxSurcharge { get; set; }
+        public decimal FareMilesTraveledBelow6mph { get; set; }
+        public decimal FareMinutesTraveledAbove6mph { get; set; }
+        public decimal NightSurcharge { get; set; }
+        public decimal PeakWeakdaySurcharge { get; set; }
+        public decimal TotalFare { get; set; }
+
+    }
+
     public class TaxiCabFare
     {
         private const decimal _entryFare = 3m;
@@ -21,8 +33,8 @@ namespace TaxiCab
         private const int _nightSurchargeEndHour = 6;
         private const int unitFareMilesPerHour = 6;
 
-        private DateTime BeginTime { get; set; }
-        private DateTime EstimateEndTime { get; set; }
+        private DateTime RideBeginDateTime { get; set; }
+        private DateTime EstimateRideEndDateTime { get; set; }
 
         private decimal MilesTraveledBelow6pmh { get; set; }
         private int MinutesTraveledAbove6mph { get; set; }
@@ -30,41 +42,39 @@ namespace TaxiCab
         private bool _isPeakWeekday;
         private bool _isNight { get; set; }
 
-        public TaxiCabFare(DateTime beginTime, decimal milesTraveledBelow6mph, int minutesTraveledAbove6mph)
+        public TaxiCabFare(DateTime rideBeginDateTime, decimal milesTraveledBelow6mph, int minutesTraveledAbove6mph)
         {
-            BeginTime = beginTime;
+            RideBeginDateTime = rideBeginDateTime;
             MilesTraveledBelow6pmh = milesTraveledBelow6mph;
             MinutesTraveledAbove6mph = minutesTraveledAbove6mph;
 
-            EstimateEndTime = GetEstimatedEndTime();
-            _isNight = BeginTime.Hour >= _nightSurchargeStartHour && EstimateEndTime.Hour <= _nightSurchargeEndHour;
-            _isPeakWeekday = (BeginTime.Hour <= _peakWeekdaySurchargeStartHour && EstimateEndTime.Hour <= _peakWeekdaySurchargeEndHour)
-                && (BeginTime.DayOfWeek != DayOfWeek.Saturday || BeginTime.DayOfWeek != DayOfWeek.Sunday);
+            EstimateRideEndDateTime = GetEstimatedEndTime();
+            _isNight = RideBeginDateTime.Hour >= _nightSurchargeStartHour && EstimateRideEndDateTime.Hour <= _nightSurchargeEndHour;
+            _isPeakWeekday = (RideBeginDateTime.Hour <= _peakWeekdaySurchargeStartHour && EstimateRideEndDateTime.Hour <= _peakWeekdaySurchargeEndHour)
+                && (RideBeginDateTime.DayOfWeek != DayOfWeek.Saturday || RideBeginDateTime.DayOfWeek != DayOfWeek.Sunday);
         }
 
         private DateTime GetEstimatedEndTime()
         {
             int minutesTraveledBelow6mph = (int)(MilesTraveledBelow6pmh / 6) * 60;
-            return BeginTime.AddMinutes(minutesTraveledBelow6mph);
+            return RideBeginDateTime.AddMinutes(minutesTraveledBelow6mph);
         }
 
-        public decimal CalculateFare()
+        public TaxiCabFareResult CalculateFare()
         {
-            decimal fare = _entryFare;
+            var result = new TaxiCabFareResult
+            {
+                EntryFare = _entryFare,
+                FareMilesTraveledBelow6mph = (MilesTraveledBelow6pmh / _unitFareDistance) * _unitFare,
+                FareMinutesTraveledAbove6mph = (MinutesTraveledAbove6mph * _unitFare),
+                NightSurcharge = _isNight ? _nightSurcharge : 0,
+                PeakWeakdaySurcharge = _isPeakWeekday ? _peakWeakdaySurcharge : 0,
+                NyStateTaxSurcharge = _nyStateTaxSurcharge
+            };
 
-            //calculate distance below 6mph
-            fare += (MilesTraveledBelow6pmh / _unitFareDistance) * _unitFare;
-            //calculate time travled above 6pm
-            fare += (MinutesTraveledAbove6mph * _unitFare);
-            //calculate night surcharge
-            if (_isNight)
-                fare += _nightSurcharge;
-            if (_isPeakWeekday)
-                fare += _peakWeakdaySurcharge;
-            //add tax
-            fare += _nyStateTaxSurcharge;
+            result.TotalFare = (result.EntryFare + result.FareMilesTraveledBelow6mph + result.FareMinutesTraveledAbove6mph + result.NightSurcharge + result.PeakWeakdaySurcharge + result.NyStateTaxSurcharge);
 
-            return fare;
+            return result;
         }
 
     }
