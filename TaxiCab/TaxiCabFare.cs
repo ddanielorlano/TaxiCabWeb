@@ -27,9 +27,9 @@ namespace TaxiCab
         private const decimal _nyStateTaxSurcharge = .50m;
         private const decimal _unitFareDistance = .2m;
 
-        private const int _peakWeekdaySurchargeStartHour = 6;
-        private const int _peakWeekdaySurchargeEndHour = 8;
-        private const int _nightSurchargeStartHour = 10;
+        private const int _peakWeekdaySurchargeStartHour = 16;
+        private const int _peakWeekdaySurchargeEndHour = 20;
+        private const int _nightSurchargeStartHour = 20;
         private const int _nightSurchargeEndHour = 6;
         private const int unitFareMilesPerHour = 6;
 
