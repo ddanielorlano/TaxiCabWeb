@@ -9,7 +9,7 @@ namespace TaxiCabWeb.Models
     {
         public int MinutesTraveledAbove6pmh { get; set; }
         public int MilesTraveledBelow6mph { get; set; }
-        public DateTime RideBeginDateTime { get; set; }
+        public DateTime? RideBeginDateTime { get; set; }
     }
 
     public class TaxiCabRateResponseModel
@@ -21,5 +21,7 @@ namespace TaxiCabWeb.Models
         public decimal NightSurcharge { get; set; }
         public decimal PeakWeakdaySurcharge { get; set; }
         public decimal TotalFare { get; set; }
+
+        public bool Success { get; set; }
     }
 }

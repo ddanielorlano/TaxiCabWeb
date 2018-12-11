@@ -21,13 +21,13 @@
                                         <div class="form-group">
                                             <label for="hourRange">Ride Start Hour</label>
                                             <label for="hourRange"><span class="badge badge-light">{{taxiRateObj.rideHour}}</span></label>
-                                            <input type="range" ng-model="taxiRateObj.rideHour" class="form-control-range" id="hourRange" min="00" max="24">
+                                            <input type="range" ng-change="hourRangeChange();" ng-model="taxiRateObj.rideHour" class="form-control-range" id="hourRange" min="00" max="24">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="minuteRange">Ride Start Minute</label>
                                             <label for="minuteRange"><span class="badge badge-light">{{taxiRateObj.rideMinute}}</span></label>
-                                            <input type="range" ng-model="taxiRateObj.rideMinute" class="form-control-range" id="minuteRange" min="0" max="60">
+                                            <input type="range" ng-change="minuteRangeChange();" ng-model="taxiRateObj.rideMinute" class="form-control-range" id="minuteRange" min="0" max="60">
                                         </div>
                                     </form>
                                 </div>
@@ -61,7 +61,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Ride Day</h5>
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':dayChosen == $index}" ng-click="dayClicked($index);">
+                                        <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':taxiRateObj.dayChosen == $index}" ng-click="dayClicked($index);">
                                             <span>{{day}}</span>
                                             <input type="radio" name="options" id="day{{$index}}" autocomplete="off">
                                         </label>
@@ -76,12 +76,14 @@
                             <div class="card text-center">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <h5 class="card-title">Ride Date</h5>
-                                            <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="beginDate" />
-                                        </div>
-                                        <div class="col-sm-6">
-                                            {{displayRideBeginDateTime}}
+                                            <div class="input-group mb-3">
+                                                <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="taxiRateObj.rideDate" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">{{taxiRateObj.rideDate | date: 'medium'}}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

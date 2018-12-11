@@ -22,6 +22,8 @@ namespace TaxiCabWeb.Controllers
 
         public ActionResult CalculateRate(Models.TaxiCabRateRequestModel taxiCabRateModel)
         {
+            if (!taxiCabRateModel.RideBeginDateTime.HasValue)
+                return Json(new Models.TaxiCabRateResponseModel { Success = false }, JsonRequestBehavior.AllowGet);
 
             TaxiFareRequest taxiFareRequest = new TaxiFareRequest
             {
@@ -30,17 +32,18 @@ namespace TaxiCabWeb.Controllers
                 RideBeginDateTime = taxiCabRateModel.RideBeginDateTime
             };
 
-            TaxiFareResult taxiResult = (TaxiFareResult)_fareCalculator.CalculateFare(taxiFareRequest);
+            TaxiFareResult fareResult = (TaxiFareResult)_fareCalculator.CalculateFare(taxiFareRequest);
 
             Models.TaxiCabRateResponseModel rsp = new Models.TaxiCabRateResponseModel
             {
-                EntryFare = taxiResult.EntryFare,
-                FareMilesTraveledBelow6mph = taxiResult.FareMilesTraveledBelow6mph,
-                FareMinutesTraveledAbove6mph = taxiResult.FareMinutesTraveledAbove6mph,
-                NightSurcharge = taxiResult.NightSurcharge,
-                NyStateTaxSurcharge = taxiResult.NyStateTaxSurcharge,
-                PeakWeakdaySurcharge = taxiResult.PeakWeekdaySurcharge,
-                TotalFare = taxiResult.TotalFare
+                EntryFare = fareResult.EntryFare,
+                FareMilesTraveledBelow6mph = fareResult.FareMilesTraveledBelow6mph,
+                FareMinutesTraveledAbove6mph = fareResult.FareMinutesTraveledAbove6mph,
+                NightSurcharge = fareResult.NightSurcharge,
+                NyStateTaxSurcharge = fareResult.NyStateTaxSurcharge,
+                PeakWeakdaySurcharge = fareResult.PeakWeekdaySurcharge,
+                TotalFare = fareResult.TotalFare,
+                Success = fareResult.Success
             };
 
             return Json(rsp, JsonRequestBehavior.AllowGet);
