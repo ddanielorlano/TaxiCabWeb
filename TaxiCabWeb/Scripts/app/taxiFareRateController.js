@@ -1,4 +1,5 @@
 ﻿(function (ng) {
+
     var app = ng.module('appModule');
     if (!app) return;
 
@@ -22,6 +23,7 @@
                 $scope.showResults = true;
             });
         }
+
         function getRequestModel() {
             var taxiCabRateRequestModel = {
                 minutesTravelingAbove6pmh: $scope.taxiRateObj.minutesTravelingAbove6mph,
@@ -32,9 +34,17 @@
             var newDate = new Date(rideDate.getFullYear(), rideDate.getMonth() + 1, rideDate.getDate(),
                 $scope.taxiRateObj.rideHour, $scope.taxiRateObj.rideMinute, 0, 0);
 
-            taxiCabRateRequestModel.rideBeginDateTime = newDate;
-
+            taxiCabRateRequestModel.rideBeginDateTime = getRideBeginDateTime();
+            $scope.displayRideBeginDateTime = taxiCabRateRequestModel.rideBeginDateTime;
             return taxiCabRateRequestModel;
+        }
+
+        function getRideBeginDateTime() {
+
+            var rideDate = $scope.taxiRateObj.rideDate;
+            var newDate = new Date(rideDate.getFullYear(), rideDate.getMonth() + 1, rideDate.getDate(),
+                $scope.taxiRateObj.rideHour, $scope.taxiRateObj.rideMinute, 0, 0);
+            return newDate;
         }
 
         var daysInWeekStrs = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri"];
@@ -50,12 +60,13 @@
             $scope.dayChosen = $scope.beginDate.getDay();
 
             $scope.taxiRateObj.rideDate = $scope.beginDate;
+            $scope.displayRideBeginDateTime = $scope.beginDate;
         };
 
         $scope.datePickerChanged = function () {
             $scope.dayChosen = $scope.beginDate.getDay();
             $scope.taxiRateObj.rideDate = $scope.beginDate;
-            alert($scope.taxiRateObj.rideDate);
+            $scope.displayRideBeginDateTime = $scope.beginDate;
         };
 
 
@@ -77,6 +88,7 @@
         $scope.taxiRateObj = taxiRateObj;
         $scope.taxiCabRateResponseModel;
         $scope.showResults = false;
-
+        //Set this until the full DateTime object is created later
+        $scope.displayRideBeginDateTime = $scope.taxiRateObj.rideDate;
     }]);
 })(this.angular);

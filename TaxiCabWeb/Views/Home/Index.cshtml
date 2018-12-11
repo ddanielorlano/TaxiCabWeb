@@ -3,15 +3,13 @@
 }
 
 <div id="angularApp" ng-app="appModule" ng-controller="taxiFareRateController">
-
-
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+
+        <div class="col-md-8">
 
             <div class="card text-center">
                 <div class="card-header">
-                    TaxiCab Fare Rate Calculator
+                    Taxi Cab Fare Rate Calculator
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -74,55 +72,68 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-11">
+                        <div class="col-sm-12">
                             <div class="card text-center">
                                 <div class="card-body">
-                                    <h5 class="card-title">Ride Date</h5>
-                                    <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="beginDate" />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h5 class="card-title">Ride Date</h5>
+                                            <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="beginDate" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{displayRideBeginDateTime}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <hr />
                     <div class="row">
                         <button type="button" ng-click="getRate();" class="btn btn-secondary btn-lg btn-block">Calculate Fare</button>
                     </div>
                 </div>
             </div>
-            <hr />
-            <div class="row">
-                <div class="" ng-show="showResults">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            Total Fare <span class="badge badge-light">${{taxiCabRateResponseModel.totalFare}}</span>
+        </div>
+
+        <div class="col-md-4" ng-show="showResults">
+            <div class="card text-center">
+                <div class="card-header">
+                    Fare Breakdown
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="card-header">
+                                Total Fare <span class="badge badge-light">${{taxiCabRateResponseModel.totalFare}}</span>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Entry Fare <span class="badge badge-light">${{taxiCabRateResponseModel.entryFare}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Ny State Tax<span class="badge badge-light">${{taxiCabRateResponseModel.nyStateTaxSurcharge}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Fare for Miles Traveled below 6 MPH<span class="badge badge-light">${{taxiCabRateResponseModel.fareMilesTraveledBelow6mph}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Fare for Minutes Traveled Above 6 MPH <span class="badge badge-light">${{taxiCabRateResponseModel.fareMinutesTraveledAbove6mph}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Night Surcharge: <span class="badge badge-light">${{taxiCabRateResponseModel.nightSurcharge}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Peak Weekday Surcharge <span class="badge badge-light">${{taxiCabRateResponseModel.peakWeakdaySurcharge}}</span>
+                                </li>
+                            </ul>
+
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                Entry Fare <span class="badge badge-light">${{taxiCabRateResponseModel.entryFare}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Ny State Tax<span class="badge badge-light">${{taxiCabRateResponseModel.nyStateTaxSurcharge}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Fare for Miles Traveled below 6 MPH<span class="badge badge-light">${{taxiCabRateResponseModel.fareMilesTraveledBelow6mph}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Fare for Minutes Traveled Above 6 MPH <span class="badge badge-light">${{taxiCabRateResponseModel.fareMinutesTraveledAbove6mph}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Night Surcharge: <span class="badge badge-light">${{taxiCabRateResponseModel.nightSurcharge}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Peak Weekday Surcharge <span class="badge badge-light">${{taxiCabRateResponseModel.peakWeakdaySurcharge}}</span>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4"></div>
 </div>
