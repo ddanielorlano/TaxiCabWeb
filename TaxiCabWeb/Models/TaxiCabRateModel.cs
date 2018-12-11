@@ -7,7 +7,7 @@ namespace TaxiCabWeb.Models
 {
     public class TaxiCabRateRequestModel
     {
-        public int MinutesTravelingAbove6pmh { get; set; }
+        public int MinutesTraveledAbove6pmh { get; set; }
         public int MilesTraveledBelow6mph { get; set; }
         public DateTime RideBeginDateTime { get; set; }
     }

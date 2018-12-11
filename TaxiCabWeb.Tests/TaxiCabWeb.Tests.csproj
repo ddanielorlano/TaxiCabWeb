@@ -99,6 +99,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FareCalculator\FareCalculator.csproj">
+      <Project>{3f62d4ec-4c28-4ee6-81cf-46085c625366}</Project>
+      <Name>FareCalculator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaxiCabWeb\TaxiCabWeb.csproj">
       <Project>{8A62D789-01D7-4C80-9972-88B08408C89F}</Project>
       <Name>TaxiCabWeb</Name>

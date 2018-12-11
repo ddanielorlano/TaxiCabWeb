@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCabWeb", "TaxiCabWeb\Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCabWeb.Tests", "TaxiCabWeb.Tests\TaxiCabWeb.Tests.csproj", "{6BFFF8F4-8B4B-43A8-B43A-0FD44046940C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiCab", "TaxiCab\TaxiCab.csproj", "{A6918079-05C9-412A-81F0-7F3217F7D939}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FareCalculator", "FareCalculator\FareCalculator.csproj", "{3F62D4EC-4C28-4EE6-81CF-46085C625366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FareCalculator.Tests", "FareCalculator.Tests\FareCalculator.Tests.csproj", "{8C8BC302-A1BD-4001-B63B-16681A42EE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,15 +25,20 @@ Global
 		{6BFFF8F4-8B4B-43A8-B43A-0FD44046940C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BFFF8F4-8B4B-43A8-B43A-0FD44046940C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BFFF8F4-8B4B-43A8-B43A-0FD44046940C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6918079-05C9-412A-81F0-7F3217F7D939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6918079-05C9-412A-81F0-7F3217F7D939}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6918079-05C9-412A-81F0-7F3217F7D939}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6918079-05C9-412A-81F0-7F3217F7D939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F62D4EC-4C28-4EE6-81CF-46085C625366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F62D4EC-4C28-4EE6-81CF-46085C625366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F62D4EC-4C28-4EE6-81CF-46085C625366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F62D4EC-4C28-4EE6-81CF-46085C625366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8BC302-A1BD-4001-B63B-16681A42EE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8BC302-A1BD-4001-B63B-16681A42EE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8BC302-A1BD-4001-B63B-16681A42EE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8BC302-A1BD-4001-B63B-16681A42EE0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93A0779A-A722-4F8E-B3E5-A49751B3BCD9}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

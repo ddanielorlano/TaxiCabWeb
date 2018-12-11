@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TaxiCabWeb;
 using TaxiCabWeb.Controllers;
+using FareCalculator;
 
 namespace TaxiCabWeb.Tests.Controllers
 {
@@ -16,7 +17,7 @@ namespace TaxiCabWeb.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(new TaxiFareCalculator());
 
             // Act
             ViewResult result = controller.Index() as ViewResult;

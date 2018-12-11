@@ -4,14 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A6918079-05C9-412A-81F0-7F3217F7D939}</ProjectGuid>
+    <ProjectGuid>{3F62D4EC-4C28-4EE6-81CF-46085C625366}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TaxiCab</RootNamespace>
-    <AssemblyName>TaxiCab</AssemblyName>
+    <RootNamespace>FareCalculator</RootNamespace>
+    <AssemblyName>FareCalculator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,8 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TaxiCabFare.cs" />
+    <Compile Include="FareResult.cs" />
+    <Compile Include="Interfaces\IFareCalculator.cs" />
+    <Compile Include="Interfaces\IFareRequest.cs" />
+    <Compile Include="Interfaces\IFareResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaxiFareCalculator.cs" />
+    <Compile Include="TaxiFareRequest.cs" />
+    <Compile Include="TaxiFareResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
