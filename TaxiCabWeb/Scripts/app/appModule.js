@@ -1,5 +1,5 @@
 ﻿(function (ng) {
 
-    var app = ng.module('appModule', ['ngResource']);
+    var app = ng.module('appModule', ['ngResource', 'ngMessages']);
 
 })(this.angular);

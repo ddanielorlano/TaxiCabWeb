@@ -183,6 +183,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\appModule.js" />
+    <Content Include="Scripts\app\customValidator.js" />
     <Content Include="Scripts\app\taxiFareRateController.js" />
     <Content Include="Scripts\app\taxiFareRateService.js" />
     <Content Include="favicon.ico" />

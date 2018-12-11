@@ -5,7 +5,6 @@
 
     app.controller('taxiFareRateController', ['$scope', 'taxiFareRateService', function ($scope, taxiFareRateService) {
 
-
         function getRate() {
 
             var requestModel = getRequestModel();
@@ -83,7 +82,6 @@
         $scope.taxiRateObj = taxiRateObj;
         $scope.taxiCabRateResponseModel;
         $scope.showResults = false;
-        $scope.rate = "0.0";
         $scope.getRate = getRate;
 
     }]);
