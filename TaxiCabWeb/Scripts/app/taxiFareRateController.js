@@ -5,7 +5,7 @@
 
     app.controller('taxiFareRateController', ['$scope', 'taxiFareRateService', function ($scope, taxiFareRateService) {
 
-        function getRate() {
+        function getFare() {
 
             var requestModel = getRequestModel();
 
@@ -42,11 +42,12 @@
             return newDate;
         }
 
-        var daysInWeekStrs = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri"];
+        var daysInWeekStrs = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
         $scope.daysInWeek = daysInWeekStrs;
 
         $scope.dayClicked = function (index) {
 
+            if (!$scope.taxiRateObj.rideDate) return;
             var newDate = new Date($scope.taxiRateObj.rideDate);
             var diff = index - $scope.taxiRateObj.rideDate.getDay();
             newDate.setDate(newDate.getDate() + diff);
@@ -56,15 +57,19 @@
         };
 
         $scope.datePickerChanged = function () {
+            if (!$scope.taxiRateObj.rideDate) return;
             $scope.taxiRateObj.dayChosen = $scope.taxiRateObj.rideDate.getDay();
         };
 
         $scope.minuteRangeChange = function () {
-            $scope.taxiRateObj.rideDate.setMinutes($scope.taxiRateObj.rideMinute);
+            $scope.taxiRateObj.rideDate.setMinutes(parseInt($scope.taxiRateObj.rideMinute));
         };
 
         $scope.hourRangeChange = function () {
-            $scope.taxiRateObj.rideDate.setHours($scope.taxiRateObj.rideHour);
+            //not sure this is needed, can likly do as above for minuteRangeChange
+            var currentHrs = $scope.taxiRateObj.rideDate.getHours();
+            var difference = parseInt($scope.taxiRateObj.rideHour) - currentHrs;
+            $scope.taxiRateObj.rideDate.setHours(currentHrs + difference);
         }
 
         var taxiRateObj = {
@@ -75,14 +80,14 @@
             rideHour: 11,
             rideMinute: 30
         };
-
+        taxiRateObj.rideDate.setSeconds(0);
         taxiRateObj.rideHour = taxiRateObj.rideDate.getHours();
         taxiRateObj.rideMinute = taxiRateObj.rideDate.getMinutes();
 
         $scope.taxiRateObj = taxiRateObj;
         $scope.taxiCabRateResponseModel;
         $scope.showResults = false;
-        $scope.getRate = getRate;
+        $scope.getFare = getFare;
 
     }]);
 })(this.angular);

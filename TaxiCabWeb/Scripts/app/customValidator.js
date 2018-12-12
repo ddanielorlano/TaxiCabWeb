@@ -23,6 +23,7 @@
                     return miles < 6;//> 6 indicates error
                 }
 
+                //When the date is null will trigger $error
                 ngModel.$validators.checkRideBeginDate = function (rideDate) {
                     if (!rideDate) return false;
                 }

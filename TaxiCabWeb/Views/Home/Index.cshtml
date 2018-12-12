@@ -22,7 +22,7 @@
                                             <input type="range"
                                                    name="hourRangeInput"
                                                    ng-change="hourRangeChange();"
-                                                   ng-model="taxiRateObj.rideHour" class="form-control-range custom-range" id="hourRange" min="00" max="24"
+                                                   ng-model="taxiRateObj.rideHour" class="form-control-range custom-range" id="hourRange" min="00" max="23"
                                                    custom-validator ng-model-options="{ allowInvalid: true }">
                                             <div ng-messages="mainForm.hourRangeInput.$error"
                                                  ng-show="mainForm.hourRangeInput.$dirty">
@@ -109,9 +109,9 @@
                                                            ng-change="datePickerChanged()"
                                                            ng-model="taxiRateObj.rideDate"
                                                            custom-validator ng-model-options="{ allowInvalid: true }" />
-                                                        <div class="input-group-append" ng-show="!mainForm.datePicker.$invalid">
+                                                    <div class="input-group-append" ng-show="!mainForm.datePicker.$invalid">
                                                         <span class="input-group-text" id="basic-addon2">{{taxiRateObj.rideDate | date: 'medium'}}</span>
-                                                    </div>  
+                                                    </div>
                                                     <div class="input-group-append">
                                                         <div ng-messages="mainForm.datePicker.$error"
                                                              ng-show="mainForm.datePicker.$dirty">
@@ -132,7 +132,7 @@
                     <div class="card-footer text-muted">
                         <div class="row">
                             <button type="submit"
-                                    ng-click="getRate();"
+                                    ng-click="getFare();"
                                     class="btn btn-secondary btn-lg btn-block"
                                     ng-disabled="mainForm.datePicker.$invalid">
                                 Calculate Fare
