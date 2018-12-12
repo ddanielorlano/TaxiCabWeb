@@ -20,7 +20,7 @@ namespace TaxiCabWeb.Controllers
             return View();
         }
 
-        public ActionResult CalculateRate(Models.TaxiCabRateRequestModel taxiCabRateModel)
+        public ActionResult CalculateFare(Models.TaxiCabRateRequestModel taxiCabRateModel)
         {
             if (!taxiCabRateModel.RideBeginDateTime.HasValue)
                 return Json(new Models.TaxiCabRateResponseModel { Success = false }, JsonRequestBehavior.AllowGet);

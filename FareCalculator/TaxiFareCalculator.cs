@@ -8,6 +8,7 @@ namespace FareCalculator
 {
     public class TaxiFareCalculator : IFareCalculator
     {
+        #region consts
         private const decimal _entryFare = 3m;
         private const decimal _unitFare = .35m;
         private const decimal _nightSurcharge = .50m;
@@ -19,8 +20,9 @@ namespace FareCalculator
         private const int _peakWeekdaySurchargeEndHour = 20;
         private const int _nightSurchargeStartHour = 20;
         private const int _nightSurchargeEndHour = 6;
-        private readonly TimeSpan _midnightTimeSpan = new TimeSpan(0, 0, 0);
         private readonly TimeSpan _middayTimeSpan = new TimeSpan(12, 0, 0);
+        #endregion
+
         public TaxiFareCalculator() { }
 
         public IFareResult CalculateFare(IFareRequest fareRequest)
@@ -34,7 +36,7 @@ namespace FareCalculator
                 EntryFare = _entryFare,
                 FareMilesTraveledBelow6mph = (taxiRequest.MilesTraveledBelow6mph / _unitFareDistance) * _unitFare,
                 FareMinutesTraveledAbove6mph = (taxiRequest.MinutesTraveledAbove6mph * _unitFare),
-                NightSurcharge = IsNight(taxiRequest.RideBeginDateTime.Value) ? _nightSurcharge : 0,
+                NightSurcharge = IsNightSurcharge(taxiRequest.RideBeginDateTime.Value) ? _nightSurcharge : 0,
                 PeakWeekdaySurcharge = IsPeakWeekday(taxiRequest.RideBeginDateTime.Value) ? _peakWeakdaySurcharge : 0,
                 NyStateTaxSurcharge = _nyStateTaxSurcharge,
                 Success = true
@@ -45,19 +47,30 @@ namespace FareCalculator
             return result;
         }
 
-        private bool IsNight(DateTime rideBeginDateTime)
+        #region methods
+        /// <summary>
+        /// Determine wether to add the night surcharge.
+        /// </summary>
+        /// <returns>
+        /// True if evening (12:00PM - 12:00AM) and the ride began after Night Surcharge, else false.
+        /// True if not evenining (12:00AM - 12:00PM) and the ride began befor the end of Night Surcharge, else false.
+        /// </returns>
+
+        private bool IsNightSurcharge(DateTime rideBeginDateTime)
         {
             bool isEvening = rideBeginDateTime.TimeOfDay > _middayTimeSpan;
-
-            bool nightSurcharge = isEvening ? rideBeginDateTime.Hour >= _nightSurchargeStartHour : rideBeginDateTime.Hour < _nightSurchargeEndHour;
-
-            return nightSurcharge;
+            return isEvening ? rideBeginDateTime.Hour >= _nightSurchargeStartHour : rideBeginDateTime.Hour < _nightSurchargeEndHour;
         }
 
+        /// <summary>
+        /// Determine wether to add the peak weekday surcharge       
+        /// </summary>
+        /// <returns>True if it is a weekday and within the peak weekday start and end window. False if it is not a weekday, or not within the peek surcharge window</returns>
         private bool IsPeakWeekday(DateTime rideBeginDateTime)
         {
             return (rideBeginDateTime.DayOfWeek != DayOfWeek.Saturday && rideBeginDateTime.DayOfWeek != DayOfWeek.Sunday)
                 && (rideBeginDateTime.Hour >= _peakWeekdaySurchargeStartHour && rideBeginDateTime.Hour < _peakWeekdaySurchargeEndHour);
         }
+        #endregion
     }
 }

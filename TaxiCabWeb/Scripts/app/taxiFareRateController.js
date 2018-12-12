@@ -80,6 +80,7 @@
             rideHour: 11,
             rideMinute: 30
         };
+
         taxiRateObj.rideDate.setSeconds(0);
         taxiRateObj.rideHour = taxiRateObj.rideDate.getHours();
         taxiRateObj.rideMinute = taxiRateObj.rideDate.getMinutes();

@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TaxiCabWeb;
 using TaxiCabWeb.Controllers;
 using FareCalculator;
+using TaxiCabWeb.Models;
 
 namespace TaxiCabWeb.Tests.Controllers
 {
@@ -14,16 +15,39 @@ namespace TaxiCabWeb.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Test_CalculateFareSuccess()
         {
-            // Arrange
             HomeController controller = new HomeController(new TaxiFareCalculator());
+            Models.TaxiCabRateRequestModel reqModel = new TaxiCabRateRequestModel
+            {
+                MilesTraveledBelow6mph = 1,
+                MinutesTraveledAbove6pmh = 1,
+                RideBeginDateTime = DateTime.Now
+            };
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ActionResult result = controller.CalculateFare(reqModel) as ActionResult;
+            TaxiCabRateResponseModel rspModel = (TaxiCabRateResponseModel)((JsonResult)result).Data;
 
-            // Assert
             Assert.IsNotNull(result);
+            Assert.IsTrue(rspModel.Success);
+        }
+
+        [TestMethod]
+        public void Test_CalculateFareNotSuccess()
+        {
+            HomeController controller = new HomeController(new TaxiFareCalculator());
+            Models.TaxiCabRateRequestModel reqModel = new TaxiCabRateRequestModel
+            {
+                MilesTraveledBelow6mph = 1,
+                MinutesTraveledAbove6pmh = 1,
+                RideBeginDateTime = null
+            };
+
+            ActionResult result = controller.CalculateFare(reqModel) as ActionResult;
+            TaxiCabRateResponseModel rspModel = (TaxiCabRateResponseModel)((JsonResult)result).Data;
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(rspModel.Success);
         }
 
     }

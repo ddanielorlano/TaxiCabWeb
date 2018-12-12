@@ -21,7 +21,6 @@ namespace TaxiCabWeb.Models
         public decimal NightSurcharge { get; set; }
         public decimal PeakWeakdaySurcharge { get; set; }
         public decimal TotalFare { get; set; }
-
         public bool Success { get; set; }
     }
 }
