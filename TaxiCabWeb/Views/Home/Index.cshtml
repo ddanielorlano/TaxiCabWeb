@@ -4,9 +4,7 @@
 
 <div id="angularApp" ng-app="appModule" ng-controller="taxiFareRateController">
     <div class="row">
-
         <div class="col-md-8">
-
             <div class="card text-center">
                 <div class="card-header">
                     Taxi Cab Fare Rate Calculator
@@ -17,21 +15,31 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Ride Time</h5>
+
                                     <form name="rideTimeForm">
                                         <div class="form-group">
                                             <label for="hourRange">Ride Start Hour</label>
                                             <label for="hourRange"><span class="badge badge-light">{{taxiRateObj.rideHour}}</span></label>
-                                            <input type="range" name="hourRangeInput" ng-change="hourRangeChange();" ng-model="taxiRateObj.rideHour" class="form-control-range" id="hourRange" min="00" max="24" custom-validator ng-model-options="{ allowInvalid: true }">
-                                            <span ng-messages="rideTimeForm.hourRangeInput.$error"
-                                                  ng-show="rideTimeForm.hourRangeInput.$dirty">
-                                                <span ng-message="checkHour">That's pretty late</span>
-                                            </span>
+                                            <input type="range"
+                                                   name="hourRangeInput"
+                                                   ng-change="hourRangeChange();"
+                                                   ng-model="taxiRateObj.rideHour" class="form-control-range custom-range" id="hourRange" min="00" max="24"
+                                                   custom-validator ng-model-options="{ allowInvalid: true }">
+                                            <div ng-messages="rideTimeForm.hourRangeInput.$error"
+                                                 ng-show="rideTimeForm.hourRangeInput.$dirty">
+                                                <div ng-message="checkHour">
+                                                    <p><small>Pretty late..</small></p>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="minuteRange">Ride Start Minute</label>
                                             <label for="minuteRange"><span class="badge badge-light">{{taxiRateObj.rideMinute}}</span></label>
-                                            <input type="range" ng-change="minuteRangeChange();" ng-model="taxiRateObj.rideMinute" class="form-control-range" id="minuteRange" min="0" max="60">
+                                            <input type="range"
+                                                   name="minuteRangeInput"
+                                                   ng-change="minuteRangeChange();"
+                                                   ng-model="taxiRateObj.rideMinute" class="form-control-range custom-range" id="minuteRange" min="0" max="60">
                                         </div>
                                     </form>
                                 </div>
@@ -41,17 +49,33 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Ride Distance/Time</h5>
-                                    <form>
+                                    <form name="rideDistanceForm">
                                         <div class="form-group">
                                             <label for="minutesTraveledRange">Minutes Above 6</label>
                                             <label for="minutesTraveledRange"><span class="badge badge-light">{{taxiRateObj.minutesTravelingAbove6mph}}</span></label>
-                                            <input type="range" ng-model="taxiRateObj.minutesTravelingAbove6mph" class="form-control-range" id="minutesTraveledRange" min="0" max="120">
+                                            <input type="range"
+                                                   name="minutesTraveledRange"
+                                                   ng-model="taxiRateObj.minutesTravelingAbove6mph"
+                                                   class="form-control-range custom-range" id="minutesTraveledRange" min="0" max="60"
+                                                   custom-validator ng-model-options="{ allowInvalid: true }">
+                                            <div ng-messages="rideDistanceForm.minutesTraveledRange.$error"
+                                                 ng-show="rideDistanceForm.minutesTraveledRange.$dirty">
+                                                <div ng-message="checkMinutesAbove6"><p><small>Way to beat the traffic!</small></p></div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="milesTraveledRange">Miles Below 6</label>
                                             <label for="milesTraveledRange"><span class="badge badge-light">{{taxiRateObj.milesTraveledBelow6mph}}</span></label>
-                                            <input type="range" ng-model="taxiRateObj.milesTraveledBelow6mph" class="form-control-range" id="milesTraveledRange" min="0" max="30">
+                                            <input type="range"
+                                                   name="milesTraveledRange"
+                                                   ng-model="taxiRateObj.milesTraveledBelow6mph"
+                                                   class="form-control-range custom-range" id="milesTraveledRange" min="0" max="20"
+                                                   custom-validator ng-model-options="{ allowInvalid: true }">
+                                            <div ng-messages="rideDistanceForm.milesTraveledRange.$error"
+                                                 ng-show="rideDistanceForm.milesTraveledRange.$dirty">
+                                                <div ng-message="checkMilesBelow6"><p><small>So far, yet so slow..</small></p></div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -97,7 +121,11 @@
                 </div>
                 <div class="card-footer text-muted">
                     <div class="row">
-                        <button type="button" ng-click="getRate();" class="btn btn-secondary btn-lg btn-block">Calculate Fare</button>
+                        <button type="button"
+                                ng-click="getRate();"
+                                class="btn btn-secondary btn-lg btn-block">
+                            Calculate Fare
+                        </button>
                     </div>
                 </div>
             </div>

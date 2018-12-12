@@ -10,9 +10,21 @@
             restrict: 'A',
             require: 'ngModel',
             link: function (scope, element, attr, ngModel) {
-                // validation callback registration to ngModel
+
                 ngModel.$validators.checkHour = function (hour) {
-                    return hour >= 3;
+                    return !(hour >= 3 && hour <= 4);//false indicates error
+                }
+
+                ngModel.$validators.checkMinutesAbove6 = function (minutes) {
+                    return minutes < 15;//> 15 indicates error
+                }
+
+                ngModel.$validators.checkMilesBelow6 = function (miles) {
+                    return miles < 6;//> 6 indicates error
+                }
+
+                ngModel.$validators.checkRideBeginDate = function (rideDate) {
+                    if (!rideDate) return false;
                 }
             }
         }
