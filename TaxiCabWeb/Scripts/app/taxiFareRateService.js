@@ -6,7 +6,10 @@
     app.factory('taxiFareRateService', function ($resource) {
 
         var self = this;
-        var RateResource = $resource('Home/CalculateRate');
+        var ctrlName = '/Home/CalculateRate';
+        var href = window.location.href;
+        var url = href.endsWith('/Home/Index') ? href.replace('/Home/Index', ctrlName) : ctrlName;
+        var RateResource = $resource(url);
 
         self.getFare = function (taxiCabRateRequestModel) {
             return RateResource.get(taxiCabRateRequestModel);

@@ -5,18 +5,17 @@
 <div id="angularApp" ng-app="appModule" ng-controller="taxiFareRateController">
     <div class="row">
         <div class="col-md-8">
-            <div class="card text-center">
-                <div class="card-header">
-                    Taxi Cab Fare Rate Calculator
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ride Time</h5>
-
-                                    <form name="rideTimeForm">
+            <form name="mainForm">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Taxi Cab Fare Rate Calculator
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Ride Time</h5>
                                         <div class="form-group">
                                             <label for="hourRange">Ride Start Hour</label>
                                             <label for="hourRange"><span class="badge badge-light">{{taxiRateObj.rideHour}}</span></label>
@@ -25,8 +24,8 @@
                                                    ng-change="hourRangeChange();"
                                                    ng-model="taxiRateObj.rideHour" class="form-control-range custom-range" id="hourRange" min="00" max="24"
                                                    custom-validator ng-model-options="{ allowInvalid: true }">
-                                            <div ng-messages="rideTimeForm.hourRangeInput.$error"
-                                                 ng-show="rideTimeForm.hourRangeInput.$dirty">
+                                            <div ng-messages="mainForm.hourRangeInput.$error"
+                                                 ng-show="mainForm.hourRangeInput.$dirty">
                                                 <div ng-message="checkHour">
                                                     <p><small>Pretty late..</small></p>
                                                 </div>
@@ -41,15 +40,13 @@
                                                    ng-change="minuteRangeChange();"
                                                    ng-model="taxiRateObj.rideMinute" class="form-control-range custom-range" id="minuteRange" min="0" max="60">
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ride Distance/Time</h5>
-                                    <form name="rideDistanceForm">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Ride Distance/Time</h5>
                                         <div class="form-group">
                                             <label for="minutesTraveledRange">Minutes Above 6</label>
                                             <label for="minutesTraveledRange"><span class="badge badge-light">{{taxiRateObj.minutesTravelingAbove6mph}}</span></label>
@@ -72,44 +69,44 @@
                                                    ng-model="taxiRateObj.milesTraveledBelow6mph"
                                                    class="form-control-range custom-range" id="milesTraveledRange" min="0" max="20"
                                                    custom-validator ng-model-options="{ allowInvalid: true }">
-                                            <div ng-messages="rideDistanceForm.milesTraveledRange.$error"
-                                                 ng-show="rideDistanceForm.milesTraveledRange.$dirty">
+                                            <div ng-messages="mainForm.milesTraveledRange.$error"
+                                                 ng-show="mainForm.milesTraveledRange.$dirty">
                                                 <div ng-message="checkMilesBelow6"><p><small>So far, yet so slow..</small></p></div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ride Day</h5>
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':taxiRateObj.dayChosen == $index}" ng-click="dayClicked($index);">
-                                            <span>{{day}}</span>
-                                            <input type="radio" name="options" id="day{{$index}}" autocomplete="off">
-                                        </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h5 class="card-title">Ride Date</h5>
-                                            <div class="input-group mb-3">
-                                                <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="taxiRateObj.rideDate" />
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">{{taxiRateObj.rideDate | date: 'medium'}}</span>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Ride Day</h5>
+                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                            <label ng-repeat="day in daysInWeek" class="btn btn-secondary" ng-class="{'active':taxiRateObj.dayChosen == $index}" ng-click="dayClicked($index);">
+                                                <span>{{day}}</span>
+                                                <input type="radio" name="options" id="day{{$index}}" autocomplete="off">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h5 class="card-title">Ride Date</h5>
+                                                <div class="input-group mb-3">
+                                                    <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="taxiRateObj.rideDate" />
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">{{taxiRateObj.rideDate | date: 'medium'}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,17 +115,17 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer text-muted">
-                    <div class="row">
-                        <button type="button"
-                                ng-click="getRate();"
-                                class="btn btn-secondary btn-lg btn-block">
-                            Calculate Fare
-                        </button>
+                    <div class="card-footer text-muted">
+                        <div class="row">
+                            <button type="button"
+                                    ng-click="getRate();"
+                                    class="btn btn-secondary btn-lg btn-block">
+                                Calculate Fare
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="col-md-4" ng-show="showResults">
