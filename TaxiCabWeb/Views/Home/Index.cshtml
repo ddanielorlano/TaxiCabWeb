@@ -55,8 +55,8 @@
                                                    ng-model="taxiRateObj.minutesTravelingAbove6mph"
                                                    class="form-control-range custom-range" id="minutesTraveledRange" min="0" max="60"
                                                    custom-validator ng-model-options="{ allowInvalid: true }">
-                                            <div ng-messages="rideDistanceForm.minutesTraveledRange.$error"
-                                                 ng-show="rideDistanceForm.minutesTraveledRange.$dirty">
+                                            <div ng-messages="mainForm.minutesTraveledRange.$error"
+                                                 ng-show="mainForm.minutesTraveledRange.$dirty">
                                                 <div ng-message="checkMinutesAbove6"><p><small>Way to beat the traffic!</small></p></div>
                                             </div>
                                         </div>
@@ -103,11 +103,25 @@
                                             <div class="col-sm-12">
                                                 <h5 class="card-title">Ride Date</h5>
                                                 <div class="input-group mb-3">
-                                                    <input type="date" class="form-control" name="datePicker" ng-change="datePickerChanged()" ng-model="taxiRateObj.rideDate" />
-                                                    <div class="input-group-append">
+                                                    <input type="date"
+                                                           class="form-control"
+                                                           name="datePicker"
+                                                           ng-change="datePickerChanged()"
+                                                           ng-model="taxiRateObj.rideDate"
+                                                           custom-validator ng-model-options="{ allowInvalid: true }" />
+                                                        <div class="input-group-append" ng-show="!mainForm.datePicker.$invalid">
                                                         <span class="input-group-text" id="basic-addon2">{{taxiRateObj.rideDate | date: 'medium'}}</span>
+                                                    </div>  
+                                                    <div class="input-group-append">
+                                                        <div ng-messages="mainForm.datePicker.$error"
+                                                             ng-show="mainForm.datePicker.$dirty">
+                                                            <div ng-message="checkRideBeginDate">
+                                                                <p class="input-group-text">Valid date is required</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -117,9 +131,10 @@
                     </div>
                     <div class="card-footer text-muted">
                         <div class="row">
-                            <button type="button"
+                            <button type="submit"
                                     ng-click="getRate();"
-                                    class="btn btn-secondary btn-lg btn-block">
+                                    class="btn btn-secondary btn-lg btn-block"
+                                    ng-disabled="mainForm.datePicker.$invalid">
                                 Calculate Fare
                             </button>
                         </div>
