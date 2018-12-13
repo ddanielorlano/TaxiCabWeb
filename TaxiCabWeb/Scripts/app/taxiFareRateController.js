@@ -62,10 +62,14 @@
         };
 
         $scope.minuteRangeChange = function () {
+            if (!$scope.taxiRateObj.rideDate) return;
             $scope.taxiRateObj.rideDate.setMinutes(parseInt($scope.taxiRateObj.rideMinute));
         };
 
         $scope.hourRangeChange = function () {
+
+            if (!$scope.taxiRateObj.rideDate) return;
+
             //not sure this is needed, can likly do as above for minuteRangeChange
             var currentHrs = $scope.taxiRateObj.rideDate.getHours();
             var difference = parseInt($scope.taxiRateObj.rideHour) - currentHrs;
