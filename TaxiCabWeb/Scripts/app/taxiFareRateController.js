@@ -5,6 +5,8 @@
 
     app.controller('taxiFareRateController', ['$scope', 'taxiFareRateService', function ($scope, taxiFareRateService) {
 
+        var self = this;
+
         function getFare() {
 
             var requestModel = getRequestModel();
@@ -34,23 +36,21 @@
             };
         }
 
-        function getRideBeginDateTime() {
-
-            var rideDate = $scope.taxiRateObj.rideDate;
-            var newDate = new Date(rideDate.getFullYear(), rideDate.getMonth() + 1, rideDate.getDate(),
-                $scope.taxiRateObj.rideHour, $scope.taxiRateObj.rideMinute, 0, 0);
-            return newDate;
-        }
-
         var daysInWeekStrs = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
         $scope.daysInWeek = daysInWeekStrs;
 
         $scope.dayClicked = function (index) {
+            self.changeRideDate(index);
+        };
+        //setting like this so unit test can access it
+        self.changeRideDate = function (index) {
 
             if (!$scope.taxiRateObj.rideDate) return;
+
             var newDate = new Date($scope.taxiRateObj.rideDate);
             var diff = index - $scope.taxiRateObj.rideDate.getDay();
             newDate.setDate(newDate.getDate() + diff);
+
             $scope.taxiRateObj.rideDate = newDate;
             $scope.taxiRateObj.dayChosen = $scope.taxiRateObj.rideDate.getDay();
 
@@ -70,22 +70,24 @@
             var currentHrs = $scope.taxiRateObj.rideDate.getHours();
             var difference = parseInt($scope.taxiRateObj.rideHour) - currentHrs;
             $scope.taxiRateObj.rideDate.setHours(currentHrs + difference);
-        }
-
-        var taxiRateObj = {
-            minutesTravelingAbove6mph: 5,
-            milesTraveledBelow6mph: 2,
-            rideDate: new Date(),
-            dayChosen: new Date().getDay(),
-            rideHour: 11,
-            rideMinute: 30
         };
 
-        taxiRateObj.rideDate.setSeconds(0);
-        taxiRateObj.rideHour = taxiRateObj.rideDate.getHours();
-        taxiRateObj.rideMinute = taxiRateObj.rideDate.getMinutes();
+        //setup the obj that will be used in Index.html
+        self.getTaxiRateObj = function (dt) {
+            var taxiRateObj = {
+                minutesTravelingAbove6mph: 5,
+                milesTraveledBelow6mph: 2,
+                rideDate: dt,
+                dayChosen: dt.getDay(),
+                rideHour: dt.getHours(),
+                rideMinute: dt.getMinutes()
+            };
 
-        $scope.taxiRateObj = taxiRateObj;
+            taxiRateObj.rideDate.setSeconds(0);
+            return taxiRateObj;
+        };
+
+        $scope.taxiRateObj = self.getTaxiRateObj(new Date());
         $scope.taxiCabRateResponseModel;
         $scope.showResults = false;
         $scope.getFare = getFare;

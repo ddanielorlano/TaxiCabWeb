@@ -1,4 +1,4 @@
-﻿describe("taxi fare test", function () {
+﻿describe("test the taxi ctrl", function () {
     var $rootScope;
     var $controller;
     beforeEach(module("appModule"));
@@ -9,15 +9,24 @@
         $scope = $rootScope.$new();
 
     }));
-    beforeEach(inject(function ($controller) {
-        taxiFareRateController = $controller("taxiFareRateController", {$scope: $rootScope});
 
+    beforeEach(inject(function ($controller) {
+        taxiFareRateController = $controller("taxiFareRateController", { $scope: $scope });
     }));
 
-    it("Should say hello", function () {
-        $scope.rideMinute = 1;
-        $scope.getFare();
-        expect($scope.taxiCabRateResponseModel.Success).toBe(false);
+    it("dayClicked func should change the taxiRateObj.rideDate properly", function () {
+
+        var testDate = new Date(2018, 11, 11, 6, 30, 0, 0);//Tue 12-11-18 6:30 AM
+        $scope.taxiRateObj = taxiFareRateController.getTaxiRateObj(testDate);
+
+        expect($scope.taxiRateObj.dayChosen).toBe(2);//Tue
+        expect($scope.taxiRateObj.rideDate.getDate()).toBe(11);
+
+        taxiFareRateController.changeRideDate(3);//This should increase date by 1 day
+        $scope.$digest();
+        expect($scope.taxiRateObj.dayChosen).toBe(3);//Wed
+        expect($scope.taxiRateObj.rideDate.getDate()).toBe(12);
+
     });
 
 });
