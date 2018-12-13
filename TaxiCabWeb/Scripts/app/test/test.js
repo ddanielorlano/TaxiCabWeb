@@ -29,4 +29,8 @@
 
     });
 
+    it("should fail so you know tests are actually running", function () {
+        expect("this to fail").toBe("see, it fails");
+    });
+
 });
