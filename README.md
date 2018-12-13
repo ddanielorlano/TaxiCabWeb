@@ -8,7 +8,13 @@
 
 **JS Tests** using jasmine 2.99.0 and karma 3.1.3 (\TaxiCabWeb\TaxiCabWeb\Scripts\app\test.js)
 
-  To run tests `cd .\TaxiCabWeb\TaxiCabWeb` and enter `npm test`
+  **To run tests:** 
+  I have included the node_modules to the project at `.\TaxiCabWeb\TaxiCabWeb` and
+  `package.json` (for npm) and `karma.conf.js` (for karma) are already there.
+  
+  You should be able to `cd .\TaxiCabWeb\TaxiCabWeb` and enter `npm install` which reads the `package.json` and rebuilds binary dependencies. 
+  
+  Then `npm test` will run the tests.
   
 There is a weird error thrown likely due to a problem during installation:
 ```
